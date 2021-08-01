@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Словарь</string>
+    <string name="error_textview_stub">Ошибка</string>
+    <string name="reload_button">Обновить</string>
+    <string name="undefined_error">Не известная ошибка</string>
+    <string name="empty_server_response_on_success">Пустой ответ сервера</string>
+    <string name="button_search">Найти</string>
+    <string name="search_hint">Для поиска необходимно нажать на кнпоку "Найти"</string>
+    <string name="delete_description">X</string>
+    <string name="search_fab_content_description">Кнопка поиска</string>
 </resources>
