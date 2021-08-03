@@ -3,37 +3,38 @@ package com.afrosin.dictionary.viewmodel
 import androidx.lifecycle.LiveData
 import com.afrosin.dictionary.interactor.MainInteractor
 import com.afrosin.dictionary.model.data.AppState
-import com.afrosin.dictionary.model.dataSource.DataSourceLocal
-import com.afrosin.dictionary.model.dataSource.DataSourceRemote
-import com.afrosin.dictionary.repository.RepositoryImplementation
+import com.afrosin.dictionary.utils.parseSearchResults
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.observers.DisposableObserver
+import javax.inject.Inject
 
-class MainViewModel(
-    private val interactor: MainInteractor = MainInteractor(
-        RepositoryImplementation(DataSourceRemote()),
-        RepositoryImplementation(DataSourceLocal())
-    )
-) : BaseViewModel<AppState>() {
+class MainViewModel @Inject constructor(private val interactor: MainInteractor) :
+    BaseViewModel<AppState>() {
 
     private var appState: AppState? = null
 
-    override fun getData(word: String, isOnline: Boolean): LiveData<AppState> {
+    fun subscribe(): LiveData<AppState> {
+        return liveDataForViewToObserve
+    }
+
+    override fun getData(word: String, isOnline: Boolean) {
         compositeDisposable.add(
             interactor.getData(word, isOnline)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.main())
-                .doOnSubscribe { liveDataForViewToObserve.value = AppState.Loading(null) }
-
+                .doOnSubscribe(doOnSubscribe())
                 .subscribeWith(getObserver())
         )
-        return super.getData(word, isOnline)
     }
+
+    private fun doOnSubscribe(): (Disposable) -> Unit =
+        { liveDataForViewToObserve.value = AppState.Loading(null) }
 
     private fun getObserver(): DisposableObserver<AppState> {
         return object : DisposableObserver<AppState>() {
 
             override fun onNext(state: AppState) {
-                appState = state
+                appState = parseSearchResults(state)
                 liveDataForViewToObserve.value = state
             }
 

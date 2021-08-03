@@ -8,4 +8,8 @@
     <string name="search_hint">Для поиска необходимно нажать на кнпоку "Найти"</string>
     <string name="delete_description">X</string>
     <string name="search_fab_content_description">Кнопка поиска</string>
+    <string name="dialog_title_device_is_offline">Отсутсвует соединение с интернетом</string>
+    <string name="dialog_message_device_is_offline">Вы не можете использовать приложение без подключения к Интернету. Пожалуйста, проверьте интернет-соединение.</string>
+    <string name="dialog_button_cancel">Отмена</string>
+    <string name="dialog_title_stub">Неизвестная ошибка</string>
 </resources>
