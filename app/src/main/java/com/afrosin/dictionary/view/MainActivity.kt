@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -13,6 +12,7 @@ import com.afrosin.dictionary.databinding.ActivityMainBinding
 import com.afrosin.dictionary.interactor.MainInteractor
 import com.afrosin.dictionary.model.data.AppState
 import com.afrosin.dictionary.model.data.DataModel
+import com.afrosin.dictionary.utils.convertMeaningsToString
 import com.afrosin.dictionary.utils.network.isOnline
 import com.afrosin.dictionary.view.adapter.MainAdapter
 import com.afrosin.dictionary.viewmodels.MainViewModel
@@ -30,9 +30,17 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
             override fun onItemClick(data: DataModel) {
-                Toast.makeText(this@MainActivity, data.text, Toast.LENGTH_SHORT).show()
+                startActivity(
+                    WordDescriptionActivity.getIntent(
+                        this@MainActivity,
+                        data.text!!,
+                        convertMeaningsToString(data.meanings!!),
+                        data.meanings[0].imageUrl
+                    )
+                )
             }
         }
+
 
     private val searchDialogFragmentOnSearchClickListener: SearchDialogFragment.OnSearchClickListener =
         object : SearchDialogFragment.OnSearchClickListener {

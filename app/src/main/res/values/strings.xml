@@ -12,4 +12,5 @@
     <string name="dialog_message_device_is_offline">Вы не можете использовать приложение без подключения к Интернету. Пожалуйста, проверьте интернет-соединение.</string>
     <string name="dialog_button_cancel">Отмена</string>
     <string name="dialog_title_stub">Неизвестная ошибка</string>
+    <string name="image_stub">заготовка под изображение</string>
 </resources>
