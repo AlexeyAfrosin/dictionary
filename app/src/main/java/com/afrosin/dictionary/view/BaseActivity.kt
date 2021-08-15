@@ -5,7 +5,7 @@ import com.afrosin.dictionary.R
 import com.afrosin.dictionary.interactor.IInteractor
 import com.afrosin.dictionary.model.data.AppState
 import com.afrosin.dictionary.utils.ui.AlertDialogFragment
-import com.afrosin.dictionary.viewmodel.BaseViewModel
+import com.afrosin.dictionary.viewmodels.BaseViewModel
 
 
 abstract class BaseActivity<T : AppState, I : IInteractor<T>> : AppCompatActivity() {
