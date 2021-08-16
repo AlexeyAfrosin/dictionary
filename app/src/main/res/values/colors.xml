@@ -17,4 +17,5 @@
     <color name="color_gray">#66000000</color>
 
     <color name="colorAccent">#D81B60</color>
+    <color name="color_white_transparent">#80FFFFFF</color>
 </resources>

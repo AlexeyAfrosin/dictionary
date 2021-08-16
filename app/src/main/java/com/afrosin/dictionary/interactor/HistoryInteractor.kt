@@ -5,11 +5,10 @@ import com.afrosin.dictionary.model.data.DataModel
 import com.afrosin.dictionary.repository.IRepository
 import com.afrosin.dictionary.repository.IRepositoryLocal
 
-class MainInteractor(
+class HistoryInteractor(
     private val repositoryRemote: IRepository<List<DataModel>>,
     private val repositoryLocal: IRepositoryLocal<List<DataModel>>
 ) : IInteractor<AppState> {
-
     override suspend fun getData(word: String, fromRemoteSource: Boolean): AppState {
         val appState: AppState
         if (fromRemoteSource) {

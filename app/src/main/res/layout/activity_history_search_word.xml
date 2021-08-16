@@ -6,30 +6,21 @@
     android:fitsSystemWindows="true">
 
     <FrameLayout
-        android:id="@+id/success_linear_layout"
+        android:id="@+id/working_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_activity_recyclerview"
+            android:id="@+id/history_activity_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/search_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:contentDescription="@string/search_fab_content_description"
-            android:src="@drawable/ic_search" />
     </FrameLayout>
 
     <include
-        android:id="@+id/main_loading_layout"
+        android:id="@+id/history_search_word_loading_layout"
         layout="@layout/loading_layout" />
 
 </FrameLayout>
+

@@ -3,7 +3,6 @@ package com.afrosin.dictionary.model.api
 import com.afrosin.dictionary.model.data.DataModel
 import com.afrosin.dictionary.model.dataSource.BaseInterceptor
 import com.afrosin.dictionary.model.dataSource.IDataSource
-import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -24,7 +23,7 @@ class RetrofitImplementation : IDataSource<List<DataModel>> {
     private fun createRetrofit(interceptor: Interceptor): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(createOkHttpClient(interceptor))
             .build()
