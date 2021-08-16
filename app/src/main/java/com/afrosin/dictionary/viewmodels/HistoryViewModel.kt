@@ -1,16 +1,14 @@
 package com.afrosin.dictionary.viewmodels
 
 import androidx.lifecycle.LiveData
-import com.afrosin.dictionary.interactor.MainInteractor
+import com.afrosin.dictionary.interactor.HistoryInteractor
 import com.afrosin.dictionary.model.data.AppState
-import com.afrosin.dictionary.utils.parseOnlineSearchResults
+import com.afrosin.dictionary.utils.parseLocalSearchResults
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(
-    private val interactor: MainInteractor
-) : BaseViewModel<AppState>() {
+class HistoryViewModel(private val interactor: HistoryInteractor) : BaseViewModel<AppState>() {
 
     private val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 
@@ -26,7 +24,7 @@ class MainViewModel(
 
     private suspend fun startInteractor(word: String, isOnline: Boolean) =
         withContext(Dispatchers.IO) {
-            _mutableLiveData.postValue(parseOnlineSearchResults(interactor.getData(word, isOnline)))
+            _mutableLiveData.postValue(parseLocalSearchResults(interactor.getData(word, isOnline)))
         }
 
     override fun handleError(error: Throwable) {

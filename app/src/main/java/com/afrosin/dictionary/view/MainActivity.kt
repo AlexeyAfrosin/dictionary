@@ -1,6 +1,8 @@
 package com.afrosin.dictionary.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -15,6 +17,7 @@ import com.afrosin.dictionary.model.data.DataModel
 import com.afrosin.dictionary.utils.convertMeaningsToString
 import com.afrosin.dictionary.utils.network.isOnline
 import com.afrosin.dictionary.view.adapter.MainAdapter
+import com.afrosin.dictionary.view.history.HistorySearchWordActivity
 import com.afrosin.dictionary.viewmodels.MainViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -41,6 +44,9 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
             }
         }
 
+    override fun setDataToAdapter(data: List<DataModel>) {
+        adapter?.setData(data)
+    }
 
     private val searchDialogFragmentOnSearchClickListener: SearchDialogFragment.OnSearchClickListener =
         object : SearchDialogFragment.OnSearchClickListener {
@@ -89,85 +95,19 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         activityViewModel.subscribe().observe(this@MainActivity, observer)
     }
 
-    override fun renderData(appState: AppState) {
-        when (appState) {
-            is AppState.Success -> {
-                val dataModel = appState.data
-                if (dataModel == null || dataModel.isEmpty()) {
-                    showErrorScreen(getString(R.string.empty_server_response_on_success))
-                } else {
-                    showViewSuccess()
-                    if (adapter == null) {
-                        with(vb.mainActivityRecyclerview) {
-                            layoutManager = LinearLayoutManager(applicationContext)
-                            adapter =
-                                MainAdapter(onListItemClickListener, dataModel)
-
-                        }
-                    } else {
-                        adapter!!.setData(dataModel)
-                    }
-                }
-            }
-            is AppState.Loading -> {
-                showViewLoading()
-                if (appState.progress != null) {
-                    with(vb) {
-                        progressBarHorizontal.visibility = VISIBLE
-                        progressBarRound.visibility = GONE
-                        progressBarHorizontal.progress = appState.progress
-                    }
-                } else {
-                    with(vb) {
-                        progressBarHorizontal.visibility = GONE
-                        progressBarRound.visibility = VISIBLE
-                    }
-                }
-            }
-            is AppState.Error -> {
-                showErrorScreen(appState.error.message)
-            }
-        }
-    }
-
-    private fun showErrorScreen(error: String?) {
-        showViewError()
-        with(vb) {
-            errorTextview.text = error ?: getString(R.string.undefined_error)
-            reloadButton.setOnClickListener {
-                activityViewModel.getData("hi", true)
-            }
-        }
-    }
-
-    private fun showViewSuccess() {
-        with(vb) {
-            successLinearLayout.visibility = VISIBLE
-            loadingFrameLayout.visibility = GONE
-            errorLinearLayout.visibility = GONE
-        }
-
-    }
-
-    private fun showViewLoading() {
-        with(vb) {
-            successLinearLayout.visibility = GONE
-            loadingFrameLayout.visibility = VISIBLE
-            errorLinearLayout.visibility = GONE
-        }
-    }
-
-    private fun showViewError() {
-        with(vb) {
-            successLinearLayout.visibility = GONE
-            loadingFrameLayout.visibility = GONE
-            errorLinearLayout.visibility = VISIBLE
-        }
-    }
-
     companion object {
         private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG =
             "BOTTOM_SHEET_FRAGMENT_DIALOG_TAG"
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_history -> {
+                startActivity(Intent(this, HistorySearchWordActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }

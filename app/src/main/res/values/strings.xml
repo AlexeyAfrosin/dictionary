@@ -13,4 +13,7 @@
     <string name="dialog_button_cancel">Отмена</string>
     <string name="dialog_title_stub">Неизвестная ошибка</string>
     <string name="image_stub">заготовка под изображение</string>
+
+    <string name="dialog_tittle_sorry">Ошибка</string>
+    <string name="menu_title_history">История запросов</string>
 </resources>
