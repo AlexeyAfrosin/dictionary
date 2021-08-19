@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afrosin.dictionary.R
 import com.afrosin.dictionary.databinding.ActivityWordDescriptionBinding
-import com.afrosin.dictionary.utils.network.isOnline
-import com.afrosin.dictionary.utils.ui.AlertDialogFragment
+import com.afrosin.utils.network.isOnline
+import com.afrosin.utils.ui.AlertDialogFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 

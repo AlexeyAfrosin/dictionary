@@ -1,9 +1,10 @@
 package com.afrosin.dictionary.interactor
 
-import com.afrosin.dictionary.model.data.AppState
-import com.afrosin.dictionary.model.data.DataModel
-import com.afrosin.dictionary.repository.IRepository
-import com.afrosin.dictionary.repository.IRepositoryLocal
+import com.afrosin.core.viewmodels.IInteractor
+import com.afrosin.model.data.AppState
+import com.afrosin.model.data.DataModel
+import com.afrosin.repository.IRepository
+import com.afrosin.repository.IRepositoryLocal
 
 class MainInteractor(
     private val repositoryRemote: IRepository<List<DataModel>>,

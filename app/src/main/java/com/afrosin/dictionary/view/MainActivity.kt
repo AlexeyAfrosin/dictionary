@@ -6,16 +6,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.afrosin.core.BaseActivity
 import com.afrosin.dictionary.R
 import com.afrosin.dictionary.databinding.ActivityMainBinding
 import com.afrosin.dictionary.interactor.MainInteractor
-import com.afrosin.dictionary.model.data.AppState
-import com.afrosin.dictionary.model.data.DataModel
-import com.afrosin.dictionary.utils.convertMeaningsToString
-import com.afrosin.dictionary.utils.network.isOnline
 import com.afrosin.dictionary.view.adapter.MainAdapter
-import com.afrosin.dictionary.view.history.HistorySearchWordActivity
 import com.afrosin.dictionary.viewmodels.MainViewModel
+import com.afrosin.dictionary.viewmodels.convertMeaningsToString
+import com.afrosin.historyscreen.view.history.HistorySearchWordActivity
+import com.afrosin.model.data.AppState
+import com.afrosin.model.data.DataModel
+import com.afrosin.utils.network.isOnline
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
@@ -39,7 +40,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                         this@MainActivity,
                         data.text!!,
                         convertMeaningsToString(data.meanings!!),
-                        data.meanings[0].imageUrl
+                        data.meanings!![0].imageUrl
                     )
                 )
             }

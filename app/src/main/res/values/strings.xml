@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Словарь</string>
-    <string name="error_textview_stub">Ошибка</string>
     <string name="reload_button">Обновить</string>
     <string name="undefined_error">Не известная ошибка</string>
-    <string name="empty_server_response_on_success">Пустой ответ сервера</string>
     <string name="button_search">Найти</string>
     <string name="search_hint">Для поиска необходимно нажать на кнпоку "Найти"</string>
     <string name="delete_description">X</string>
@@ -13,7 +11,5 @@
     <string name="dialog_button_cancel">Отмена</string>
     <string name="dialog_title_stub">Неизвестная ошибка</string>
     <string name="image_stub">заготовка под изображение</string>
-
-    <string name="dialog_tittle_sorry">Ошибка</string>
     <string name="menu_title_history">История запросов</string>
 </resources>
