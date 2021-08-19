@@ -10,12 +10,6 @@ dependencies {
     implementation Kotlin.stdlib
     implementation Kotlin.core
 
-    //Design
-    implementation Design.appcompat
-    implementation Design.material
-    implementation Design.constraintLayout
-    implementation Design.swipeRefreshLayout
-
     //Test
     testImplementation TestImp.jUnit
     androidTestImplementation TestImp.extJunit
@@ -23,17 +17,6 @@ dependencies {
 
     //Retrofit
     implementation Retrofit.converterGson
-
-    //koin
-    implementation Koin.koinAndroid
-    implementation Koin.koinAndroidViewModel
-
-    //coroutines
-    implementation Coroutines.coroutinesCore
-    implementation Coroutines.coroutinesAndroid
-
-    // Picasso
-    implementation Picasso.picasso
 
     // Room
     implementation Room.roomRuntime
