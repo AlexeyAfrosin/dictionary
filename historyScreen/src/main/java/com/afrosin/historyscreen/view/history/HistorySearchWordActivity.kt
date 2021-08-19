@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afrosin.core.BaseActivity
+import com.afrosin.dictionary.di.injectDependencies
 import com.afrosin.historyscreen.R
 import com.afrosin.historyscreen.databinding.ActivityHistorySearchWordBinding
 import com.afrosin.model.data.AppState
@@ -36,6 +37,7 @@ class HistorySearchWordActivity : BaseActivity<AppState, HistoryInteractor>() {
         if (vb.historyActivityRecyclerview.adapter != null) {
             throw IllegalStateException("The ViewModel should be initialised first")
         }
+        injectDependencies()
         val vm: HistoryViewModel by viewModel()
         activityViewModel = vm
         activityViewModel.subscribe()

@@ -5,24 +5,35 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afrosin.core.BaseActivity
 import com.afrosin.dictionary.R
 import com.afrosin.dictionary.databinding.ActivityMainBinding
+import com.afrosin.dictionary.di.injectDependencies
 import com.afrosin.dictionary.interactor.MainInteractor
 import com.afrosin.dictionary.view.adapter.MainAdapter
 import com.afrosin.dictionary.viewmodels.MainViewModel
 import com.afrosin.dictionary.viewmodels.convertMeaningsToString
-import com.afrosin.historyscreen.view.history.HistorySearchWordActivity
 import com.afrosin.model.data.AppState
 import com.afrosin.model.data.DataModel
 import com.afrosin.utils.network.isOnline
+import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 import org.koin.android.viewmodel.ext.android.viewModel
+
+private const val HISTORY_SEARCH_ACTIVITY_PATH =
+    "com.afrosin.historyscreen.view.history.HistorySearchWordActivity"
+private const val HISTORY_SEARCH_ACTIVITY_FEATURE_NAME = "historyScreen"
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private val vb: ActivityMainBinding by viewBinding()
     override lateinit var activityViewModel: MainViewModel
+
+    private lateinit var splitInstallManager: SplitInstallManager
+
 
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
     private val searchFabClickListener: View.OnClickListener = View.OnClickListener {
@@ -81,6 +92,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     private fun iniViewModel() {
         check(vb.mainActivityRecyclerview.adapter == null) { "The mainViewModel should be initialised first" }
         val mainViewModel: MainViewModel by viewModel()
+        injectDependencies()
         activityViewModel = mainViewModel
         activityViewModel.subscribe().observe(this@MainActivity, { renderData(it) })
     }
@@ -93,7 +105,24 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_history -> {
-                startActivity(Intent(this, HistorySearchWordActivity::class.java))
+                splitInstallManager = SplitInstallManagerFactory.create(applicationContext)
+                val request = SplitInstallRequest
+                    .newBuilder()
+                    .addModule(HISTORY_SEARCH_ACTIVITY_FEATURE_NAME)
+                    .build()
+                splitInstallManager
+                    .startInstall(request)
+                    .addOnSuccessListener {
+                        val intent =
+                            Intent().setClassName(packageName, HISTORY_SEARCH_ACTIVITY_PATH)
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            applicationContext,
+                            "Couldn't download feature: " + it.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 true
             }
             else -> super.onOptionsItemSelected(item)

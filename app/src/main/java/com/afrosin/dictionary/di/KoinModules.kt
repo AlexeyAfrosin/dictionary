@@ -3,13 +3,19 @@ package com.afrosin.dictionary.di
 import androidx.room.Room
 import com.afrosin.dictionary.interactor.MainInteractor
 import com.afrosin.dictionary.viewmodels.MainViewModel
-import com.afrosin.historyscreen.view.history.HistoryInteractor
-import com.afrosin.historyscreen.view.history.HistoryViewModel
 import com.afrosin.model.data.DataModel
 import com.afrosin.repository.*
 import com.afrosin.repository.room.HistoryDataBase
 import com.afrosin.repository.room.RoomDataBaseImplementation
+import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
+
+
+fun injectDependencies() = loadModules
+
+private val loadModules by lazy {
+    loadKoinModules(listOf(application, mainScreen))
+}
 
 val application = module {
     single {
@@ -37,9 +43,4 @@ val application = module {
 val mainScreen = module {
     factory { MainViewModel(get()) }
     factory { MainInteractor(get(), get()) }
-}
-
-val historyScreen = module {
-    factory { HistoryViewModel(get()) }
-    factory { HistoryInteractor(get(), get()) }
 }

@@ -71,6 +71,8 @@ object Versions {
     const val roomCompiler = "2.4.0-alpha04"
     const val roomKtx = "2.4.0-alpha04"
 
+    //Google Play
+    const val playCore = "1.10.0"
 }
 
 object Kotlin {
@@ -133,4 +135,8 @@ object Room {
     const val roomRuntime = "androidx.room:room-runtime:${Versions.roomRuntime}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.roomCompiler}"
     const val roomKtx = "androidx.room:room-ktx:${Versions.roomKtx}"
+}
+
+object GooglePlay{
+    const val playCore = "com.google.android.play:core:${Versions.playCore}"
 }

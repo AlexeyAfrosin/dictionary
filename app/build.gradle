@@ -37,6 +37,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    dynamicFeatures = [Modules.historyScreen]
 }
 
 dependencies {
@@ -46,7 +48,6 @@ dependencies {
     implementation project(Modules.model)
     implementation project(Modules.repository)
     implementation project(Modules.utils)
-    implementation project(Modules.historyScreen) //Feature
 
     // Kotlin
     implementation Kotlin.stdlib
@@ -90,5 +91,7 @@ dependencies {
     implementation Room.roomRuntime
     kapt Room.roomCompiler
     implementation Room.roomKtx
+
+    implementation GooglePlay.playCore
 
 }

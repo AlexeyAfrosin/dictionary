@@ -12,4 +12,6 @@
     <string name="dialog_title_stub">Неизвестная ошибка</string>
     <string name="image_stub">заготовка под изображение</string>
     <string name="menu_title_history">История запросов</string>
+
+    <string name="title_history_screen_feature">Динамический экран истории запросов</string>
 </resources>
