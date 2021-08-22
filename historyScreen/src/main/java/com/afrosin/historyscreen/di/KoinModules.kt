@@ -1,4 +1,4 @@
-package com.afrosin.dictionary.di
+package com.afrosin.historyscreen.di
 
 import com.afrosin.historyscreen.view.history.HistoryInteractor
 import com.afrosin.historyscreen.view.history.HistoryViewModel

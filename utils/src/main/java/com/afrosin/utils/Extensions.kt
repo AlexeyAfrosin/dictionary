@@ -1,3 +1,3 @@
-package com.afrosin.dictionary.utils
+package com.afrosin.utils
 
 fun String.Companion.getEmptyString(): String = ""

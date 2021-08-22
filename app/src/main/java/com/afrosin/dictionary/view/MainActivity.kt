@@ -115,6 +115,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                     .addOnSuccessListener {
                         val intent =
                             Intent().setClassName(packageName, HISTORY_SEARCH_ACTIVITY_PATH)
+                            startActivity(intent)
                     }
                     .addOnFailureListener {
                         Toast.makeText(
