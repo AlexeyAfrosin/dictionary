@@ -2,12 +2,15 @@ package com.afrosin.dictionary.di
 
 import androidx.room.Room
 import com.afrosin.dictionary.interactor.MainInteractor
+import com.afrosin.dictionary.view.MainActivity
 import com.afrosin.dictionary.viewmodels.MainViewModel
 import com.afrosin.model.data.DataModel
 import com.afrosin.repository.*
 import com.afrosin.repository.room.HistoryDataBase
 import com.afrosin.repository.room.RoomDataBaseImplementation
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
@@ -41,6 +44,8 @@ val application = module {
 }
 
 val mainScreen = module {
-    factory { MainViewModel(get()) }
-    factory { MainInteractor(get(), get()) }
+    scope(named<MainActivity>()) {
+        scoped { MainInteractor(get(), get()) }
+        viewModel { MainViewModel(get()) }
+    }
 }

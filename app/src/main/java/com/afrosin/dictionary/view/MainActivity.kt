@@ -29,7 +29,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.scope.currentScope
 
 private const val HISTORY_SEARCH_ACTIVITY_PATH =
     "com.afrosin.historyscreen.view.history.HistorySearchWordActivity"
@@ -149,7 +149,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     private fun iniViewModel() {
         check(vb.mainActivityRecyclerview.adapter == null) { "The mainViewModel should be initialised first" }
         injectDependencies()
-        val mainViewModel: MainViewModel by viewModel()
+        val mainViewModel: MainViewModel by currentScope.inject()
         activityViewModel = mainViewModel
         activityViewModel.subscribe().observe(this@MainActivity, { renderData(it) })
     }
@@ -172,7 +172,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                     .addOnSuccessListener {
                         val intent =
                             Intent().setClassName(packageName, HISTORY_SEARCH_ACTIVITY_PATH)
-                            startActivity(intent)
+                        startActivity(intent)
                     }
                     .addOnFailureListener {
                         Toast.makeText(
