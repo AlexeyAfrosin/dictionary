@@ -50,7 +50,7 @@ class HistorySearchWordActivity : BaseActivity<AppState, HistoryInteractor>() {
 
     override fun showViewLoading(progress: Int?) {
         with(vb.historySearchWordLoadingLayout) {
-            loadingFrameLayout.visibility = View.VISIBLE
+            historyLoadingFrameLayout.visibility = View.VISIBLE
 
             if (progress != null) {
                 progressBarHorizontal.visibility = View.VISIBLE
@@ -64,7 +64,7 @@ class HistorySearchWordActivity : BaseActivity<AppState, HistoryInteractor>() {
     }
 
     override fun showViewWorking() {
-        vb.historySearchWordLoadingLayout.loadingFrameLayout.visibility = View.GONE
+        vb.historySearchWordLoadingLayout.historyLoadingFrameLayout.visibility = View.GONE
     }
 }
 
