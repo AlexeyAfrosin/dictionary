@@ -66,9 +66,9 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                 startActivity(
                     WordDescriptionActivity.getIntent(
                         this@MainActivity,
-                        data.text!!,
-                        convertMeaningsToString(data.meanings!!),
-                        data.meanings!![0].imageUrl
+                        data.text,
+                        convertMeaningsToString(data.meanings),
+                        data.meanings[0].imageUrl
                     )
                 )
             }

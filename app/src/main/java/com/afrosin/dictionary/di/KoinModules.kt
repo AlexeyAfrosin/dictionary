@@ -4,7 +4,7 @@ import androidx.room.Room
 import com.afrosin.dictionary.interactor.MainInteractor
 import com.afrosin.dictionary.view.MainActivity
 import com.afrosin.dictionary.viewmodels.MainViewModel
-import com.afrosin.model.data.DataModel
+import com.afrosin.model.data.dto.DataModelDto
 import com.afrosin.repository.*
 import com.afrosin.repository.room.HistoryDataBase
 import com.afrosin.repository.room.RoomDataBaseImplementation
@@ -29,12 +29,12 @@ val application = module {
         ).build()
     }
     single { get<HistoryDataBase>().historyDao() }
-    single<IRepository<List<DataModel>>> {
+    single<IRepository<List<DataModelDto>>> {
         RepositoryImplementation(
             RetrofitImplementation()
         )
     }
-    single<IRepositoryLocal<List<DataModel>>> {
+    single<IRepositoryLocal<List<DataModelDto>>> {
         RepositoryImplementationLocal(
             RoomDataBaseImplementation(
                 get()

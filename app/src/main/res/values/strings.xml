@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Словарь</string>
-    <string name="reload_button">Обновить</string>
-    <string name="undefined_error">Не известная ошибка</string>
     <string name="button_search">Найти</string>
     <string name="search_hint">Для поиска необходимно нажать на кнпоку "Найти"</string>
     <string name="delete_description">X</string>

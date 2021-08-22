@@ -3,7 +3,6 @@ package com.afrosin.core
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.afrosin.core.viewmodels.BaseViewModel
 import com.afrosin.core.viewmodels.IInteractor
 import com.afrosin.model.data.AppState

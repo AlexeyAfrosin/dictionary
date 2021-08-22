@@ -1,5 +1,3 @@
 package com.afrosin.model.data
 
-import com.google.gson.annotations.SerializedName
-
-class Translation(@field:SerializedName("text") val translation: String?)
+data class Translation(val translation: String = "")
