@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afrosin.core.BaseActivity
 import com.afrosin.dictionary.R
@@ -18,6 +19,8 @@ import com.afrosin.dictionary.viewmodels.convertMeaningsToString
 import com.afrosin.model.data.AppState
 import com.afrosin.model.data.DataModel
 import com.afrosin.utils.network.isOnline
+import com.afrosin.utils.viewById
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -44,6 +47,9 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     private lateinit var splitInstallManager: SplitInstallManager
 
     private lateinit var appUpdateManager: AppUpdateManager
+
+    private val mainActivityRecyclerview by viewById<RecyclerView>(R.id.main_activity_recyclerview)
+    private val searchFab by viewById<FloatingActionButton>(R.id.search_fab)
 
 
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
@@ -140,14 +146,12 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     }
 
     private fun initViews() {
-        with(vb) {
-            mainActivityRecyclerview.adapter = adapter
-            searchFab.setOnClickListener(searchFabClickListener)
-        }
+        mainActivityRecyclerview.adapter = adapter
+        searchFab.setOnClickListener(searchFabClickListener)
     }
 
     private fun iniViewModel() {
-        check(vb.mainActivityRecyclerview.adapter == null) { "The mainViewModel should be initialised first" }
+        check(mainActivityRecyclerview.adapter == null) { "The mainViewModel should be initialised first" }
         injectDependencies()
         val mainViewModel: MainViewModel by currentScope.inject()
         activityViewModel = mainViewModel
