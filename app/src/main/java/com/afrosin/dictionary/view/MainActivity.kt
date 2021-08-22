@@ -148,8 +148,8 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private fun iniViewModel() {
         check(vb.mainActivityRecyclerview.adapter == null) { "The mainViewModel should be initialised first" }
-        val mainViewModel: MainViewModel by viewModel()
         injectDependencies()
+        val mainViewModel: MainViewModel by viewModel()
         activityViewModel = mainViewModel
         activityViewModel.subscribe().observe(this@MainActivity, { renderData(it) })
     }
