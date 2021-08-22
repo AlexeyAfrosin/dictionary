@@ -1,21 +1,22 @@
 package com.afrosin.core
 
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.afrosin.core.viewmodels.BaseViewModel
 import com.afrosin.core.viewmodels.IInteractor
 import com.afrosin.model.data.AppState
 import com.afrosin.model.data.DataModel
-import com.afrosin.utils.network.isOnline
+import com.afrosin.utils.network.OnlineLiveData
 import com.afrosin.utils.ui.AlertDialogFragment
 
 
 abstract class BaseActivity<T : AppState, I : IInteractor<T>> : AppCompatActivity() {
 
     abstract val activityViewModel: BaseViewModel<T>
-
-    protected var isNetworkAvailable: Boolean = false
+    protected abstract val layoutRes: Int
+    protected var isNetworkAvailable: Boolean = true
 
     protected fun showNoInternetConnectionDialog() {
         showAlertDialog(
@@ -37,14 +38,30 @@ abstract class BaseActivity<T : AppState, I : IInteractor<T>> : AppCompatActivit
         private const val DIALOG_FRAGMENT_TAG = "COM_AFROSIN_DICTIONARY_DIALOG_FRAGMENT_TAG"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        isNetworkAvailable = isOnline(applicationContext)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(layoutRes)
+        subscribeToNetworkChange()
+    }
+
+    private fun subscribeToNetworkChange() {
+        OnlineLiveData(this).observe(
+            this@BaseActivity,
+            {
+                isNetworkAvailable = it
+                if (!isNetworkAvailable) {
+                    Toast.makeText(
+                        this@BaseActivity,
+                        R.string.dialog_message_device_is_offline,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        )
     }
 
     override fun onResume() {
         super.onResume()
-        isNetworkAvailable = isOnline(applicationContext)
         if (!isNetworkAvailable && isDialogNull()) {
             showNoInternetConnectionDialog()
         }

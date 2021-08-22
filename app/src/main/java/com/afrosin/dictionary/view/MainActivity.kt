@@ -18,7 +18,6 @@ import com.afrosin.dictionary.viewmodels.MainViewModel
 import com.afrosin.dictionary.viewmodels.convertMeaningsToString
 import com.afrosin.model.data.AppState
 import com.afrosin.model.data.DataModel
-import com.afrosin.utils.network.isOnline
 import com.afrosin.utils.viewById
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -41,6 +40,7 @@ private const val UPDATE_REQUEST_CODE = 42
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
+    override val layoutRes = R.layout.activity_main
     private val vb: ActivityMainBinding by viewBinding()
     override lateinit var activityViewModel: MainViewModel
 
@@ -81,7 +81,6 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     private val searchDialogFragmentOnSearchClickListener: SearchDialogFragment.OnSearchClickListener =
         object : SearchDialogFragment.OnSearchClickListener {
             override fun onClick(searchWord: String) {
-                isNetworkAvailable = isOnline(applicationContext)
                 if (isNetworkAvailable) {
                     activityViewModel.getData(searchWord, isNetworkAvailable)
                 } else {
@@ -92,8 +91,6 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
         iniViewModel()
         initViews()
         checkForUpdates()

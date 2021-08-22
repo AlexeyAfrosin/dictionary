@@ -13,13 +13,13 @@ import org.koin.android.scope.currentScope
 
 class HistorySearchWordActivity : BaseActivity<AppState, HistoryInteractor>() {
 
+    override val layoutRes = R.layout.activity_history_search_word
     private val vb: ActivityHistorySearchWordBinding by viewBinding()
     override lateinit var activityViewModel: HistoryViewModel
     private val adapter: HistoryAdapter by lazy { HistoryAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_history_search_word)
         iniViewModel()
         initViews()
     }
