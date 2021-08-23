@@ -1,7 +1,9 @@
 package com.afrosin.dictionary.view
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -32,11 +34,13 @@ import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import org.koin.android.scope.currentScope
+import java.util.*
 
 private const val HISTORY_SEARCH_ACTIVITY_PATH =
     "com.afrosin.historyscreen.view.history.HistorySearchWordActivity"
 private const val HISTORY_SEARCH_ACTIVITY_FEATURE_NAME = "historyScreen"
 private const val UPDATE_REQUEST_CODE = 42
+private const val SETTINGS_PANEL_REQUEST_CODE = 43
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
@@ -47,6 +51,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     private lateinit var splitInstallManager: SplitInstallManager
 
     private lateinit var appUpdateManager: AppUpdateManager
+    private val uuid = UUID.randomUUID().toString()
 
     private val mainActivityRecyclerview by viewById<RecyclerView>(R.id.main_activity_recyclerview)
     private val searchFab by viewById<FloatingActionButton>(R.id.search_fab)
@@ -147,6 +152,17 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         searchFab.setOnClickListener(searchFabClickListener)
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        if (hasFocus) {
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    )
+        }
+    }
+
     private fun iniViewModel() {
         check(mainActivityRecyclerview.adapter == null) { "The mainViewModel should be initialised first" }
         injectDependencies()
@@ -184,12 +200,23 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                     }
                 true
             }
+            R.id.menu_screen_settings -> {
+                startActivityForResult(
+                    Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY),
+                    SETTINGS_PANEL_REQUEST_CODE
+                )
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.history_menu, menu)
+
+        menu?.findItem(R.id.menu_screen_settings)?.isVisible =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
         return super.onCreateOptionsMenu(menu)
     }
 
