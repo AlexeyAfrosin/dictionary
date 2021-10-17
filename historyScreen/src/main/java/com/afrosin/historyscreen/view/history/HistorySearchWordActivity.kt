@@ -4,22 +4,22 @@ import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afrosin.core.BaseActivity
-import com.afrosin.historyscreen.di.injectDependencies
 import com.afrosin.historyscreen.R
 import com.afrosin.historyscreen.databinding.ActivityHistorySearchWordBinding
+import com.afrosin.historyscreen.di.injectDependencies
 import com.afrosin.model.data.AppState
 import com.afrosin.model.data.DataModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.scope.currentScope
 
 class HistorySearchWordActivity : BaseActivity<AppState, HistoryInteractor>() {
 
+    override val layoutRes = R.layout.activity_history_search_word
     private val vb: ActivityHistorySearchWordBinding by viewBinding()
     override lateinit var activityViewModel: HistoryViewModel
     private val adapter: HistoryAdapter by lazy { HistoryAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_history_search_word)
         iniViewModel()
         initViews()
     }
@@ -38,7 +38,7 @@ class HistorySearchWordActivity : BaseActivity<AppState, HistoryInteractor>() {
             throw IllegalStateException("The ViewModel should be initialised first")
         }
         injectDependencies()
-        val vm: HistoryViewModel by viewModel()
+        val vm: HistoryViewModel by currentScope.inject()
         activityViewModel = vm
         activityViewModel.subscribe()
             .observe(this@HistorySearchWordActivity, { renderData(it) })

@@ -1,8 +1,11 @@
 package com.afrosin.historyscreen.di
 
 import com.afrosin.historyscreen.view.history.HistoryInteractor
+import com.afrosin.historyscreen.view.history.HistorySearchWordActivity
 import com.afrosin.historyscreen.view.history.HistoryViewModel
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
@@ -13,6 +16,8 @@ private val loadModules by lazy {
 }
 
 val historyScreen = module {
-    factory { HistoryViewModel(get()) }
-    factory { HistoryInteractor(get(), get()) }
+    scope(named<HistorySearchWordActivity>()) {
+        scoped { HistoryInteractor(get(), get()) }
+        viewModel { HistoryViewModel(get()) }
+    }
 }

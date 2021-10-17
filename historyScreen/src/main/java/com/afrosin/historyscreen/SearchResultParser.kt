@@ -2,7 +2,7 @@ package com.afrosin.historyscreen
 
 import com.afrosin.model.data.AppState
 import com.afrosin.model.data.DataModel
-import com.afrosin.model.data.Meanings
+import com.afrosin.model.data.Meaning
 
 fun parseLocalSearchResults(data: AppState): AppState {
     return AppState.Success(mapResult(data, false))
@@ -41,11 +41,11 @@ private fun getSuccessResultData(
 }
 
 private fun parseOnlineResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
-    if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
-        val newMeanings = arrayListOf<Meanings>()
-        for (meaning in dataModel.meanings!!) {
-            if (meaning.translation != null && !meaning.translation!!.translation.isNullOrBlank()) {
-                newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
+    if (dataModel.text.isNotBlank() && !dataModel.meanings.isNullOrEmpty()) {
+        val newMeanings = arrayListOf<Meaning>()
+        for (meaning in dataModel.meanings) {
+            if (meaning.translation.translation.isNotBlank()) {
+                newMeanings.add(Meaning(meaning.translation, meaning.imageUrl))
             }
         }
         if (newMeanings.isNotEmpty()) {
