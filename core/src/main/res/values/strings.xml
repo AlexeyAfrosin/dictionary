@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Core</string>
+    <string name="error_textview_stub">Ошибка</string>
+    <string name="empty_server_response_on_success">Пустой ответ сервера</string>
+    <string name="dialog_title_device_is_offline">Отсутсвует соединение с интернетом</string>
+    <string name="dialog_message_device_is_offline">Вы не можете использовать приложение без подключения к Интернету. Пожалуйста, проверьте интернет-соединение.</string>
+    <string name="dialog_tittle_sorry">Ошибка</string>
+</resources>

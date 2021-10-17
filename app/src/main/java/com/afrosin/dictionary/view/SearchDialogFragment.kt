@@ -11,7 +11,7 @@ import android.widget.TextView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afrosin.dictionary.R
 import com.afrosin.dictionary.databinding.SearchDialogFragmentBinding
-import com.afrosin.dictionary.utils.getEmptyString
+import com.afrosin.utils.getEmptyString
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
 

@@ -7,16 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afrosin.dictionary.R
 import com.afrosin.dictionary.databinding.ActivityMainRecyclerviewItemBinding
-import com.afrosin.dictionary.model.data.DataModel
-
+import com.afrosin.dictionary.viewmodels.convertMeaningsToString
+import com.afrosin.model.data.DataModel
 
 class MainAdapter(
-    private var onListItemClickListener: OnListItemClickListener,
-    private var data: List<DataModel>?
+    private var onListItemClickListener: OnListItemClickListener
 ) :
 
     RecyclerView.Adapter<MainAdapter.RecyclerItemViewHolder>() {
-
+    private var data: List<DataModel> = arrayListOf()
     fun setData(data: List<DataModel>) {
         this.data = data
         notifyDataSetChanged()
@@ -30,17 +29,11 @@ class MainAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
-        if (data != null) {
-            holder.bind(data!!.get(position))
-        }
+        holder.bind(data[position])
     }
 
     override fun getItemCount(): Int {
-        if (data != null) {
-            return data!!.size
-        } else {
-            return 0
-        }
+        return data.size
     }
 
     inner class RecyclerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -48,8 +41,7 @@ class MainAdapter(
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 vb.headerTextviewRecyclerItem.text = data.text
-                vb.descriptionTextviewRecyclerItem.text =
-                    data.meanings?.get(0)?.translation?.translation
+                vb.descriptionTextviewRecyclerItem.text = convertMeaningsToString(data.meanings)
 
                 itemView.setOnClickListener { openInNewWindow(data) }
             }

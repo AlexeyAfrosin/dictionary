@@ -1,9 +1,10 @@
 package com.afrosin.dictionary.viewmodels
 
 import androidx.lifecycle.LiveData
+import com.afrosin.core.viewmodels.BaseViewModel
 import com.afrosin.dictionary.interactor.MainInteractor
-import com.afrosin.dictionary.model.data.AppState
-import com.afrosin.dictionary.utils.parseSearchResults
+import com.afrosin.model.data.AppState
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,7 +26,7 @@ class MainViewModel(private val interactor: MainInteractor) :
 
     private suspend fun startInteractor(word: String, isOnline: Boolean) =
         withContext(Dispatchers.IO) {
-            _mutableLiveData.postValue(parseSearchResults(interactor.getData(word, isOnline)))
+            _mutableLiveData.postValue(parseOnlineSearchResults(interactor.getData(word, isOnline)))
         }
 
     override fun handleError(error: Throwable) {
