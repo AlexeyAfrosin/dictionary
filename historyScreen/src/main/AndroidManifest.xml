@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.afrosin.historyscreen">
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="true">
+        <activity android:name=".view.history.HistorySearchWordActivity" />
+    </application>
+
+    <dist:module
+        dist:instant="false"
+        dist:title="@string/title_history_screen_feature">
+        <dist:delivery>
+            <dist:on-demand />
+        </dist:delivery>
+        <dist:fusing dist:include="true" />
+
+    </dist:module>
+
+</manifest>

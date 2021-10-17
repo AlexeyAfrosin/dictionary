@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">model</string>
+    <string name="dialog_title_stub">Неизвестная ошибка</string>
+    <string name="dialog_button_cancel">Отмена</string>
+</resources>

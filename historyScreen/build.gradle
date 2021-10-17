@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.dynamic-feature'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+android {
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    compileSdkVersion Config.compile_sdk
+    defaultConfig {
+        minSdkVersion Config.min_sdk
+        targetSdkVersion Config.target_sdk
+    }
+
+    compileOptions {
+        sourceCompatibility Config.java_version
+        targetCompatibility Config.java_version
+    }
+}
+
+dependencies {
+
+    implementation project(Modules.model)
+    implementation project(Modules.repository)
+    implementation project(Modules.app)
+    implementation project(Modules.core)
+
+    // Kotlin
+    implementation Kotlin.stdlib
+    implementation Kotlin.core
+
+    //Design
+    implementation Design.appcompat
+    implementation Design.material
+
+    //Test
+    testImplementation TestImp.jUnit
+    androidTestImplementation TestImp.extJunit
+    androidTestImplementation TestImp.espressoCore
+
+    //ViewBindingDelegate
+    implementation ViewBindingDelegate.viewBindingPropertyDelegate
+
+    //koin
+    implementation Koin.koinAndroid
+    implementation Koin.koinAndroidViewModel
+
+    //coroutines
+    implementation Coroutines.coroutinesCore
+    implementation Coroutines.coroutinesAndroid
+
+}

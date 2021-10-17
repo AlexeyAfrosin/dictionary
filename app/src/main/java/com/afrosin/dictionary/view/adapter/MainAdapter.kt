@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afrosin.dictionary.R
 import com.afrosin.dictionary.databinding.ActivityMainRecyclerviewItemBinding
-import com.afrosin.dictionary.model.data.DataModel
-import com.afrosin.dictionary.utils.convertMeaningsToString
-
+import com.afrosin.dictionary.viewmodels.convertMeaningsToString
+import com.afrosin.model.data.DataModel
 
 class MainAdapter(
     private var onListItemClickListener: OnListItemClickListener
@@ -42,7 +41,7 @@ class MainAdapter(
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 vb.headerTextviewRecyclerItem.text = data.text
-                vb.descriptionTextviewRecyclerItem.text = convertMeaningsToString(data.meanings!!)
+                vb.descriptionTextviewRecyclerItem.text = convertMeaningsToString(data.meanings)
 
                 itemView.setOnClickListener { openInNewWindow(data) }
             }

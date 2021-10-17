@@ -1,9 +1,10 @@
 package com.afrosin.dictionary.viewmodels
 
 import androidx.lifecycle.LiveData
+import com.afrosin.core.viewmodels.BaseViewModel
 import com.afrosin.dictionary.interactor.MainInteractor
-import com.afrosin.dictionary.model.data.AppState
-import com.afrosin.dictionary.utils.parseOnlineSearchResults
+import com.afrosin.model.data.AppState
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
