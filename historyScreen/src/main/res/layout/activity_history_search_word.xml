@@ -20,7 +20,7 @@
 
     <include
         android:id="@+id/history_search_word_loading_layout"
-        layout="@layout/loading_layout" />
+        layout="@layout/history_loading_layout" />
 
 </FrameLayout>
 

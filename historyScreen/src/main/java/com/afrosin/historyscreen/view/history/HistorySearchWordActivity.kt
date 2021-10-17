@@ -6,19 +6,20 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.afrosin.core.BaseActivity
 import com.afrosin.historyscreen.R
 import com.afrosin.historyscreen.databinding.ActivityHistorySearchWordBinding
+import com.afrosin.historyscreen.di.injectDependencies
 import com.afrosin.model.data.AppState
 import com.afrosin.model.data.DataModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.scope.currentScope
 
 class HistorySearchWordActivity : BaseActivity<AppState, HistoryInteractor>() {
 
+    override val layoutRes = R.layout.activity_history_search_word
     private val vb: ActivityHistorySearchWordBinding by viewBinding()
     override lateinit var activityViewModel: HistoryViewModel
     private val adapter: HistoryAdapter by lazy { HistoryAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_history_search_word)
         iniViewModel()
         initViews()
     }
@@ -36,7 +37,8 @@ class HistorySearchWordActivity : BaseActivity<AppState, HistoryInteractor>() {
         if (vb.historyActivityRecyclerview.adapter != null) {
             throw IllegalStateException("The ViewModel should be initialised first")
         }
-        val vm: HistoryViewModel by viewModel()
+        injectDependencies()
+        val vm: HistoryViewModel by currentScope.inject()
         activityViewModel = vm
         activityViewModel.subscribe()
             .observe(this@HistorySearchWordActivity, { renderData(it) })
@@ -48,7 +50,7 @@ class HistorySearchWordActivity : BaseActivity<AppState, HistoryInteractor>() {
 
     override fun showViewLoading(progress: Int?) {
         with(vb.historySearchWordLoadingLayout) {
-            loadingFrameLayout.visibility = View.VISIBLE
+            historyLoadingFrameLayout.visibility = View.VISIBLE
 
             if (progress != null) {
                 progressBarHorizontal.visibility = View.VISIBLE
@@ -62,7 +64,7 @@ class HistorySearchWordActivity : BaseActivity<AppState, HistoryInteractor>() {
     }
 
     override fun showViewWorking() {
-        vb.historySearchWordLoadingLayout.loadingFrameLayout.visibility = View.GONE
+        vb.historySearchWordLoadingLayout.historyLoadingFrameLayout.visibility = View.GONE
     }
 }
 

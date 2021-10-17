@@ -1,6 +1,6 @@
 package com.afrosin.repository
 
-import com.afrosin.model.data.DataModel
+import com.afrosin.model.data.dto.DataModelDto
 import com.afrosin.repository.api.ApiService
 import com.afrosin.repository.api.BaseInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -10,9 +10,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitImplementation : IDataSource<List<DataModel>> {
+class RetrofitImplementation : IDataSource<List<DataModelDto>> {
 
-    override suspend fun getData(word: String): List<DataModel> {
+    override suspend fun getData(word: String): List<DataModelDto> {
         return getService(BaseInterceptor.interceptor).searchAsync(word).await()
     }
 

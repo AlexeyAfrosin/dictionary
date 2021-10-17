@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.library'
+    id 'com.android.dynamic-feature'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
@@ -9,12 +9,24 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    compileSdkVersion Config.compile_sdk
+    defaultConfig {
+        minSdkVersion Config.min_sdk
+        targetSdkVersion Config.target_sdk
+    }
+
+    compileOptions {
+        sourceCompatibility Config.java_version
+        targetCompatibility Config.java_version
+    }
 }
 
 dependencies {
 
     implementation project(Modules.model)
     implementation project(Modules.repository)
+    implementation project(Modules.app)
     implementation project(Modules.core)
 
     // Kotlin
@@ -24,8 +36,6 @@ dependencies {
     //Design
     implementation Design.appcompat
     implementation Design.material
-    implementation Design.constraintLayout
-    implementation Design.swipeRefreshLayout
 
     //Test
     testImplementation TestImp.jUnit
